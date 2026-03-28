@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 Ponte Guapa - Calculadora de Precios 🌸</title>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #f8f5f2; color: #5a4a42; margin: 0; padding: 20px; }
+        .container { max-width: 700px; margin: auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); padding: 25px; }
+        h1 { text-align: center; color: #c7a89b; margin-bottom: 20px; }
+        label { display: block; margin-top: 10px; font-weight: 600; }
+        select, input { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        .decoraciones { margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; }
+        .decoracion-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .decoracion-item label { flex: 1; font-weight: normal; }
+        .decoracion-item input { width: 70px; text-align: center; }
+        button { background-color: #e8d6c3; color: #5a4a42; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 15px; width: 100%; font-size: 16px; }
+        button:hover { background-color: #d9c2ae; }
+        .resultado { margin-top: 20px; background-color: #f3ede8; padding: 15px; border-radius: 8px; text-align: center; font-size: 18px; font-weight: bold; }
+        #btnWhatsapp { background-color: #25d366; color: white; display: none; margin-top: 10px; text-decoration: none; text-align: center; padding: 12px; border-radius: 8px; font-weight: bold; }
+        #btnWhatsapp:hover { background-color: #128c7e; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🌸 Ponte Guapa 🌸</h1>
+    
+    <label for="tecnica">Técnica</label>
+    <select id="tecnica">
+        <option value="12000">Esmaltado semipermanente - $12.000</option>
+        <option value="15000">Capping Gel - $15.000</option>
+        <option value="20000">Soft Gel - $20.000</option>
+        <option value="17000">Service SoftGel - $17.000</option>
+    </select>
+
+    <div class="decoraciones">
+        <h3>Decoraciones (por uña)</h3>
+        <div class="decoracion-item"><label>Uña completa strass ($800)</label><input type="number" id="strassCompleto" min="0" value="0"></div>
+        <div class="decoracion-item"><label>Polvo ($250)</label><input type="number" id="polvo" min="0" value="0"></div>
+        <div class="decoracion-item"><label>Encapsulado ($500)</label><input type="number" id="encapsulado" min="0" value="0"></div>
+        <div class="decoracion-item"><label>Babyboomer ($200)</label><input type="number" id="babyboomer" min="0" value="0"></div>
+        <div class="decoracion-item"><label>Aura ($400)</label><input type="number" id="aura" min="0" value="0"></div>
+        <div class="decoracion-item"><label>French ($200)</label><input type="number" id="french" min="0" value="0"></div>
+        <div class="decoracion-item"><label>Nail art ($250)</label><input type="number" id="nailart" min="0" value="0"></div>
+        <div class="decoracion-item"><label>Strass ($250)</label><input type="number" id="strass" min="0" value="0"></div>
+        <div class="decoracion-item"><label>Cat eye ($200)</label><input type="number" id="cateye" min="0" value="0"></div>
+        <div class="decoracion-item"><label>Dijes ($200)</label><input type="number" id="dijes" min="0" value="0"></div>
+        <div class="decoracion-item"><label>Relieve ($300)</label><input type="number" id="relieve" min="0" value="0"></div>
+        <div class="decoracion-item"><label>Blooming ($250)</label><input type="number" id="blooming" min="0" value="0"></div>
+        <div class="decoracion-item"><label>Arreglo de uña ($1500)</label><input type="number" id="arreglo" min="0" value="0"></div>
+    </div>
+
+    <label for="retiro">Retiro</label>
+    <select id="retiro">
+        <option value="0">Sin retiro</option>
+        <option value="8000">Retiro de mi trabajo definitivo - $8.000</option>
+        <option value="4000">Retiro Semipermanente de otro salón - $4.000</option>
+        <option value="6000">Retiro KappingGel de otro salón - $6.000</option>
+        <option value="8000">Retiro de Esculpidas de otro salón - $8.000</option>
+    </select>
+
+    <button onclick="calcular()">Calcular Total</button>
+
+    <div class="resultado" id="resultado">Total: $0</div>
+    
+    <!-- BOTÓN DE WHATSAPP -->
+    <a href="#" id="btnWhatsapp" target="_blank">Enviar presupuesto por WhatsApp 💬</a>
+</div>
+
+<script>
+function calcular() {
+    const tecnicaSelect = document.getElementById('tecnica');
+    const tecnicaNombre = tecnicaSelect.options[tecnicaSelect.selectedIndex].text.split(' - ')[0];
+    const tecnicaPrecio = parseInt(tecnicaSelect.value);
+
+    const retiroSelect = document.getElementById('retiro');
+    const retiroNombre = retiroSelect.options[retiroSelect.selectedIndex].text.split(' - ')[0];
+    const retiroPrecio = parseInt(retiroSelect.value);
+
+    const precios = {
+        strassCompleto: { nombre: "Uña strass completo", precio: 800 },
+        polvo: { nombre: "Polvo", precio: 250 },
+        encapsulado: { nombre: "Encapsulado", precio: 500 },
+        babyboomer: { nombre: "Babyboomer", precio: 200 },
+        aura: { nombre: "Aura", precio: 400 },
+        french: { nombre: "French", precio: 200 },
+        nailart: { nombre: "Nail art", precio: 250 },
+        strass: { nombre: "Strass", precio: 250 },
+        cateye: { nombre: "Cat eye", precio: 200 },
+        dijes: { nombre: "Dijes", precio: 200 },
+        relieve: { nombre: "Relieve", precio: 300 },
+        blooming: { nombre: "Blooming", precio: 250 },
+        arreglo: { nombre: "Arreglo uña rota", precio: 1500 }
+    };
+
+    let totalDecoraciones = 0;
+    let detalleDecoraciones = "";
+
+    for (let key in precios) {
+        const cantidad = parseInt(document.getElementById(key).value) || 0;
+        if (cantidad > 0) {
+            totalDecoraciones += precios[key].precio * cantidad;
+            detalleDecoraciones += `- ${cantidad}x ${precios[key].nombre}\n`;
+        }
+    }
+
+    const total = tecnicaPrecio + totalDecoraciones + retiroPrecio;
+    document.getElementById('resultado').innerText = "Total: $" + total.toLocaleString('es-AR');
+
+    // Configurar el botón de WhatsApp
+    const miTelefono = "5491112345678"; // <--- CAMBIÁ ESTO POR TU NÚMERO (Código de país + área + número)
+    const mensaje = `¡Hola Ponte Guapa! ✨%0AQuiero un turno. Mi presupuesto es:%0A%0A*Técnica:* ${tecnicaNombre}%0A*Decoraciones:*%0A${detalleDecoraciones || "- Ninguna"}*Retiro:* ${retiroNombre}%0A%0A*TOTAL ESTIMADO: $${total.toLocaleString('es-AR')}*`;
+    
+    const btnWpp = document.getElementById('btnWhatsapp');
+    btnWpp.href = `https://wa.me/${miTelefono}?text=${mensaje}`;
+    btnWpp.style.display = "block";
+}
+</script>
+
+</body>
+</html>
